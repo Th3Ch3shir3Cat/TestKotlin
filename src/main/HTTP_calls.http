@@ -1,0 +1,49 @@
+### Create an Entity
+
+POST http://localhost:8080/addEntity
+Content-Type: application/json
+
+{
+  "documentId":"ecd4b8e5-c7f8-4afc-b71d-8b65dcca47da",
+  "dictionaryValueId": "f68c8fd2-2f83-4203-a1a1-18ece7fd0432",
+  "sortOrder": "desc"
+}
+
+> {% client.test("Successful POST Request", function() {
+    client.assert(response.status === 201, "Response Status is not 201")
+}) %}
+
+### Get All Entities
+
+GET http://localhost:8080/getEntities
+Content-Type: application/json
+
+> {% client.test("Successful GET Request", function() {
+    client.assert(response.status === 200, "Response Status is not 200")
+}) %}
+
+###
+PATCH http://localhost:8080/updateEntity/2b22c448-90b3-4b6b-ace9-a89d91015eaf
+Content-Type: application/json
+
+{
+  "documentId":"ecd4b8e5-c7f8-4afc-b71d-8b65dcca47da",
+  "dictionaryValueId": "f68c8fd2-2f83-4203-a1a1-18ece7fd0432",
+  "sortOrder": "asc"
+}
+
+> {% client.test("Successful PATCH Request", function() {
+    client.assert(response.status === 201, "Response Status is not 201")
+}) %}
+
+### Delete Entity
+DELETE http://localhost:8080/deleteEntity/88f3782d-8305-44e0-bfb0-0a879a44b6b3
+
+### Entity Not Found
+
+GET http://localhost:8080/getEntities/b29c0c2c-a929-4253-bb5a-87a78b41727d
+Content-Type: application/json
+
+> {% client.test("Event Not Found", function() {
+    client.assert(response.status === 404, "Response Status is not 404")
+}) %}
